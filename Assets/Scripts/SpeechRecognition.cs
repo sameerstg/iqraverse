@@ -7,7 +7,8 @@ using UnityEngine.Networking;
 [RequireComponent(typeof(AudioSource))]
 public class SpeechRecognition : MonoBehaviour
 {
-    public static SpeechRecognition Instance;   
+    public static SpeechRecognition Instance;
+    public Trigger trigger;
     private AudioClip recordedClip;         // The raw looping buffer from microphone
     private AudioClip lastRecordedClip;     // Trimmed clip of the last successful recording (for replay)
 
@@ -52,7 +53,7 @@ public class SpeechRecognition : MonoBehaviour
     private void Update()
     {
         // Record: Hold T
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.T) && trigger.triggered)
         {
             audioSource.Stop();
             StartRecording();
@@ -64,10 +65,10 @@ public class SpeechRecognition : MonoBehaviour
         }
 
         // Replay: Press R
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            ReplayLastRecording();
-        }
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+        //    ReplayLastRecording();
+        //}
 
         //// Send to Piper API: Press S
         //if (Input.GetKeyDown(KeyCode.S))
